@@ -1,3 +1,7 @@
 #include <board.hpp>
 
-Board::Board(unsigned width, unsigned height) : width(width), height(height) {}
+Board::Board(unsigned rows, unsigned cols) : rows(rows), cols(cols) {}
+
+void Board::remove(unsigned row, unsigned col) {
+    erase(std::make_pair(row, col));
+}
