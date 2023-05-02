@@ -2,21 +2,27 @@
 #define RULE_GUARD
 
 #include <chess.hpp>
-
+#include <board.hpp>
 class Rule {
+    protected:
+        Board *board;
     public:
-        using RuleReturnType = bool;
-        virtual RuleReturnType validate(Chess chess, unsigned nextRow, unsigned nextCol) = 0;
+        Rule(Board *board);
+        enum class RuleReturnType {VALID = 0, INVALID, WIN, LOSE};
+        virtual RuleReturnType validateMove(Chess &chess, unsigned nextRow, unsigned nextCol) = 0;
 };
 
 class BigBoardRule : public Rule {
     public:
-        RuleReturnType validate(Chess chess, unsigned nextRow, unsigned nextCol);
+        BigBoardRule(Board *board);
+        RuleReturnType validateMove(Chess &chess, unsigned nextRow, unsigned nextCol) override;
 };
 
 class SmallBoardRule : public Rule {
     public:
-        RuleReturnType validate(Chess chess, unsigned nextRow, unsigned nextCol);
+        SmallBoardRule(Board *board);
+        RuleReturnType validateMove(Chess &chess, unsigned nextRow, unsigned nextCol) override;
+        RuleReturnType validateUnfold(Chess &chess);
 };
 
 #endif
