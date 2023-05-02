@@ -2,13 +2,15 @@
 #define BOARD_GUARD
 
 #include <chess.hpp>
-#include <vector>
+#include <map>
+#include <utility>
 
-class Board : public std::vector<Chess> {
+class Board : public std::map<std::pair<unsigned, unsigned>, Chess> {
     public:
-        Board(unsigned width, unsigned height);
-        unsigned width;
-        unsigned height;
+        unsigned rows;
+        unsigned cols;
+        Board(unsigned rows, unsigned cols);
+        void remove(unsigned row, unsigned col);
 };
 
 #endif
