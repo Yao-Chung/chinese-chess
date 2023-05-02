@@ -11,12 +11,12 @@ class BaseInitializer {
 
 class BigBoardInitializer : public BaseInitializer {
     public:
-        InitReturnType init(Board &board);
+        InitReturnType init(Board &board) override;
 };
 
 class SmallBoardInitializer : public BaseInitializer {
     public:
-        InitReturnType init(Board &board);
+        InitReturnType init(Board &board) override;
 };
 
 #endif
