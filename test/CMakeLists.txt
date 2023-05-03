@@ -1,10 +1,10 @@
-add_executable( hello_test
-  hello.cpp
+add_executable( unit_tests
+  rule_test.cpp
 )
 target_link_libraries(
-  hello_test
+  unit_tests
   GTest::gtest_main
 )
 
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(unit_tests)
