@@ -1,13 +1,23 @@
 #ifndef GAME_GUARD
-#define GAME
+#define GAME_GUARD
 
 #include <board.hpp>
 #include <rule.hpp>
 #include <initializer.hpp>
 
 class Game {
-    public:
-        Board
+    protected:
+        Board *board;
+        Rule *rule;
+        BaseInitializer *initializer;
+};
+
+class BigGame : public Game {
+
+};
+
+class SmallGame : public Game {
+    
 };
 
 #endif
