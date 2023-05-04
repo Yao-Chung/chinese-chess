@@ -1,8 +1,8 @@
 add_executable( unit_tests
-  rule_test.cpp
+  small_rule_test.cpp
 )
-target_link_libraries(
-  unit_tests
+target_link_libraries(unit_tests
+  game_lib
   GTest::gtest_main
 )
 
