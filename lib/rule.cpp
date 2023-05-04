@@ -6,11 +6,16 @@ Rule::Rule(Board *board) : board(board) {}
 
 BigBoardRule::BigBoardRule(Board *board) : Rule(board) {}
 
-SmallBoardRule::SmallBoardRule(Board *board) : Rule(board) {}
-
 Rule::RuleReturnType BigBoardRule::validateMove(Chess &chess, unsigned nextRow, unsigned nextCol) {
+    // TODO:
     return RuleReturnType::VALID_MOVE;
 }
+Rule::RuleReturnType BigBoardRule::validateResult() {
+    // TODO:
+    return RuleReturnType::RED_WIN;
+}
+
+SmallBoardRule::SmallBoardRule(Board *board) : Rule(board) {}
 
 Rule::RuleReturnType SmallBoardRule::validateMove(Chess &chess, unsigned nextRow, unsigned nextCol) {
     using ChessID = Chess::ChessID;
@@ -65,7 +70,7 @@ Rule::RuleReturnType SmallBoardRule::validateUnfold(Chess &chess) {
 
 Rule::RuleReturnType SmallBoardRule::validateResult() {
     unsigned blackN = 0, redN = 0;
-    for(auto [_, chess] : *board) {
+    for(const auto& [_, chess] : *board) {
         if(chess.color == Chess::ChessColor::BLACK) {
             blackN += 1;
         }else {
