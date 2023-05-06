@@ -1,0 +1,42 @@
+name: chess_rule_test
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - "include/**"
+      - "lib/**"
+      - "test/**"
+  pull_request:
+    types:
+        - opened
+    branches: [ main ]
+    paths:
+      - "include/**"
+      - "lib/**"
+      - "test/**"
+  workflow_dispatch:
+    inputs:
+      parameter:
+        description: 'Reason for manually trigger'
+        required: true
+  
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v1.13
+      with:
+        cmake-version: '3.22'
+
+    - name: Build and run unit tests
+      run: |
+        cmake -B build
+        cmake --build build
+        ctest --test-dir build --output-on-failure
+
