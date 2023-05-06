@@ -4,6 +4,7 @@ on:
   push:
     branches: [ main ]
     paths:
+      - ".github/workflows/**"
       - "include/**"
       - "lib/**"
       - "test/**"
@@ -12,6 +13,7 @@ on:
         - opened
     branches: [ main ]
     paths:
+      - ".github/workflows/**"
       - "include/**"
       - "lib/**"
       - "test/**"
