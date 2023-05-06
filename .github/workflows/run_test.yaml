@@ -3,20 +3,12 @@ name: chess_rule_test
 on:
   push:
     branches: [ main ]
-    paths:
-      - ".github/workflows/**"
-      - "include/**"
-      - "lib/**"
-      - "test/**"
+  
   pull_request:
     types:
         - opened
     branches: [ main ]
-    paths:
-      - ".github/workflows/**"
-      - "include/**"
-      - "lib/**"
-      - "test/**"
+    
   workflow_dispatch:
     inputs:
       parameter:
