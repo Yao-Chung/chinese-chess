@@ -34,16 +34,19 @@ class SmallGameRuleTest : public ::testing::Test {
 TEST_F(SmallGameRuleTest, boundaryCheck) {
   ASSERT_EQ(smallRule.validateMove(mockBoard.at({3, 1}), 4, 1), Rule::RuleReturnType::INVALID);
   ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 4}), 4, 4), Rule::RuleReturnType::INVALID);
+  ASSERT_EQ(smallRule.validateResult(), Rule::RuleReturnType::CONTINUE);
 }
 
 // Move to diagonal position
 TEST_F(SmallGameRuleTest, diagonalCheck) {
   ASSERT_EQ(smallRule.validateMove(mockBoard.at({3, 1}), 2, 2), Rule::RuleReturnType::INVALID);
+  ASSERT_EQ(smallRule.validateResult(), Rule::RuleReturnType::CONTINUE);
 }
 
 // Move folded chess
 TEST_F(SmallGameRuleTest, foldedChessCheck) {
   ASSERT_EQ(smallRule.validateMove(mockBoard.at({0, 4}), 0, 3), Rule::RuleReturnType::INVALID);
+  ASSERT_EQ(smallRule.validateResult(), Rule::RuleReturnType::CONTINUE);
 }
 
 // Move to empty space
@@ -53,13 +56,40 @@ TEST_F(SmallGameRuleTest, moveToEmptyCheck) {
   ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 2}), 2, 3), Rule::RuleReturnType::VALID_MOVE);
   ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 6}), 2, 7), Rule::RuleReturnType::VALID_MOVE);
   ASSERT_EQ(smallRule.validateMove(mockBoard.at({3, 1}), 3, 2), Rule::RuleReturnType::VALID_MOVE);
+  ASSERT_EQ(smallRule.validateResult(), Rule::RuleReturnType::CONTINUE);
 }
 
 // Eat enemy
 TEST_F(SmallGameRuleTest, eatEnemyCheck) {
-  ASSERT_EQ(1, 1);
+  // KING and SOLDIER
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({0, 1}), 1, 1), Rule::RuleReturnType::INVALID);
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({1, 1}), 0, 1), Rule::RuleReturnType::VALID_EAT);
+
+  // SOLDIER eat CANNON
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 6}), 2, 5), Rule::RuleReturnType::INVALID);
+
+  // CAR and CANNON
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 5}), 1, 5), Rule::RuleReturnType::INVALID);
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({1, 5}), 2, 5), Rule::RuleReturnType::VALID_EAT);
+
+  // GUARD and KING
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 1}), 3, 1), Rule::RuleReturnType::INVALID);
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({3, 1}), 2, 1), Rule::RuleReturnType::VALID_EAT);
+  ASSERT_EQ(smallRule.validateResult(), Rule::RuleReturnType::CONTINUE);
 }
 
-// TEST_F(SmallGameRuleTest, printArrVal) {
-  // EXPECT_EQ(arr[0], 10);
-// }
+// CANNON move and eat
+TEST_F(SmallGameRuleTest, cannonEatCheck) {
+  // Invalid moved and eat
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 5}), 2, 3), Rule::RuleReturnType::INVALID);
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 5}), 2, 1), Rule::RuleReturnType::INVALID);
+  // Valid eat
+  ASSERT_EQ(smallRule.validateMove(mockBoard.at({2, 5}), 2, 2), Rule::RuleReturnType::VALID_EAT);
+  ASSERT_EQ(smallRule.validateResult(), Rule::RuleReturnType::CONTINUE);
+}
+
+// Unfold chess
+TEST_F(SmallGameRuleTest, unfoldChessTest) {
+  ASSERT_EQ(smallRule.validateUnfold(mockBoard.at({0, 4})), Rule::RuleReturnType::VALID_UNFOLD);
+  ASSERT_EQ(smallRule.validateResult(), Rule::RuleReturnType::CONTINUE);
+}
