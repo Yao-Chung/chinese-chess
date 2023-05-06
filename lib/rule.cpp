@@ -29,7 +29,7 @@ Rule::RuleReturnType SmallBoardRule::validateMove(Chess &chess, unsigned nextRow
         return RuleReturnType::INVALID;
     }
     if(!board->contains({nextRow, nextCol})) {
-        return RuleReturnType::VALID_MOVE;
+        return (chess.id != ChessID::CANNON) ? RuleReturnType::VALID_MOVE : RuleReturnType::INVALID;
     }else {
          // Has another chess
         Chess nextChess = board->at({nextRow, nextCol});
