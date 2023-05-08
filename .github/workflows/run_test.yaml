@@ -30,7 +30,7 @@ jobs:
 
     - name: Build and run unit tests
       run: |
-        cmake -B build
+        cmake -B build -DSFML_FLAG=OFF
         cmake --build build
         ctest --test-dir build --output-on-failure
 
