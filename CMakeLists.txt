@@ -11,11 +11,15 @@ add_subdirectory(lib)
 add_subdirectory(exec)
 
 include(FetchContent)
-FetchContent_Declare(
-  googletest
+FetchContent_Declare(SFML
+    GIT_REPOSITORY https://github.com/SFML/SFML.git
+    GIT_TAG 2.6.x)
+FetchContent_MakeAvailable(SFML)
+
+FetchContent_Declare(googletest
   URL https://github.com/google/googletest/archive/b796f7d.zip
 )
-set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 enable_testing()
 add_subdirectory(test)
